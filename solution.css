@@ -1,0 +1,15 @@
+The solution involves replacing the `:has()` selector with a more precise selector that directly targets the immediate child.  This avoids the unintended consequences of `:has()`'s broader scope.
+
+```css
+.parent > .child-element {
+  color: blue;
+}
+.parent > .child-element + .parent {
+  background-color: lightblue;
+}
+.parent .other-child {
+  color: green;
+}
+```
+
+This revised CSS uses the `>` child combinator to ensure that only direct children of `.parent` are considered.  This approach is more predictable and aligns with the intended behavior.
