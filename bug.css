@@ -1,0 +1,24 @@
+The following CSS code snippet demonstrates an issue where the expected behavior of `:has()` doesn't occur.  The `.parent` element should only change color if its immediate child is `.child-element`.
+
+```css
+.parent:has(.child-element) {
+  background-color: lightblue;
+}
+.parent .child-element {
+  color: blue;
+}
+.parent .other-child {
+  color: green;
+}
+```
+
+However, due to the `:has()` pseudo-class's behavior of looking at the entire subtree, `.parent`'s color changes even if `.child-element` is nested deeply. This means the following HTML will still style the `.parent` as lightblue which is unexpected.
+
+```html
+<div class="parent">
+  <div class="other-child">
+    <div class="child-element"></div>
+  </div>
+</div>
+```
+This is a tricky case where the specificity of selectors and the implementation details of `:has()` interact unexpectedly, potentially leading to difficult-to-diagnose issues.
